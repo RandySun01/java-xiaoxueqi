@@ -1,0 +1,65 @@
+
+emp: 员工管理项目
+版本一（简化版）：登陆 注册 员工信息增删改
+		完整 权限管理，MD5加密
+emp:
+	分层：将不同类型的代码放在不同的包里
+		entity---实体类 
+		dao---数据层
+		service---Servlet层
+		utils---工具层
+	
+	create table user( id int primary key auto_increment, 
+					   username varchar(20), 
+					   name varchar(20),
+					   ser varchar(10));
+	insert into user values(null,'admin',123456,'Tom','man');
+	
+	alter table user add password int after username;
+	
+	
+	
+	
+	
+	private static int id;
+	private static String username;
+	private static int password;
+	private static String name;
+	private static String sex;
+	
+	注册 save(User user)
+	insert into user values (null,"?","?","?");
+	
+	http://localhost:8080/emp/register.html
+	
+	登陆
+	localhost:8080/emp/login.html
+	localhost:8080/emp/index.jsp
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

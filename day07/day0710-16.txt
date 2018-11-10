@@ -1,0 +1,179 @@
+知识点回顾
+	1 http协议
+		请求方式：get(默认)，post
+	2 表单中包含中文参数值
+		get-->service.xml(Tomcat)
+		<connector 
+			URIEncoding="utf-8"/>
+			
+		post
+		request.setCharacterEncoding("utf-8");
+	
+正课：
+	1、 重定向
+	ISO-8859-1
+		服务器通知浏览器向一个新地址发送请求
+		1.1、 如何重定向
+		response.sendRedirect(String url);
+		url就是重定向的地址
+		request：请求数据包
+		response:响应数据包
+		请求数据包------->request
+		response-------->响应数据包
+		servlet会将处理结果放在response里面
+		容器(Tomcat)再从response中获取数据打包成响应数据包-----没有重定向
+		class EmpServlet{
+			service（）{
+				response.sendRedirect("/urse");
+				
+			}
+		}
+		
+		重定向之前，容器会将response里面数据全部清空
+		特点：（10分）
+			1. 重定向的地址是任意的
+			2. 重定向之后，地址栏的地址会发生变化
+		
+		
+		
+		模拟网站注册：
+		Myservlet_day03:
+		web:
+			RegisterServlet{
+				service(){
+				
+				}
+			
+			}
+		***.html
+		form表单：----/reg
+		name password tepephone
+				
+		RegisterServlet{
+			if(name == null || password == null){
+				response.sendRedirect("fail")
+			}else{
+				response.setResirect("success")
+			}
+		}
+		
+		web.xml
+			SuccessServlet{
+				out.print("注册成功！")；
+			}
+			
+	2  JSP
+		1.1 jsp是什么？
+			sun公司制定的一种服务器端动态页面技术规范
+			注：Servlet可以拼接一个动态页面，但是太繁琐，所以就有了JSP
+		1.2 如何洗一个JSP
+			1 添加一个后缀是.jsp的文件
+			2 在该文件中实现下面内容：
+				html(css,js)
+				可以直接写java代码：
+					<% java代码 %>
+					<%=java表达式 %>
+		练习 在页面上输出十遍Hello Kitty, kitty.jsp
+	3  隐含对象
+		在JSP文件中可以直接使用的一些对象
+		out,request,response;(9分)
+		
+		为什么要有这些隐含对象，解决繁琐
+		为什么能直接使用这些隐含对象，
+		因为容器会自动添加这些隐含对象代码
+		
+		jsp的本质就是一个servlet，
+		容器会将一个.JSP文件转换成一个.java文件
+		hello.jsp--转换-->hello.java  extends HttpServlet
+		3.1 指令:
+			通知容器，在将jsp转换成一个servlet时，需要的做一些额外的处理
+			比如：导包
+			指令的语法: <@ 指令名 属性= 值%>
+			
+		3.2 JSP是怎样运行的
+			1、 容器（tomcat)会将jsp文件转换成一个对应的servlet
+				html(css,js): 照搬
+				<%=java表达式 %>
+				out.print(java表达式)；
+				
+				<%=sdf.format(date) %>
+				out.print(sdf.format(date));
+				
+				<%java代码%>：照搬
+				kitty.jsp
+				<%
+					for(int i = 0; i < 10; i++){
+				%>
+						<%=hell kitty%><br/>
+					<%}%>
+				PrintWrite out = response.getWrite();
+				for(int i = 0; i < 10; i++){
+					out.print(hell kitty);
+				}
+	4 转发:
+		4.1 什么是转发
+			一个web组件将未完成的处理交给另一个web组件来继续做
+			web组件： servlet，jsp
+			注：常见的应用场景是一个servlet获取相关的数据，然后交给另一个jsp来展示
+		4.2 如何转发
+			1 将数据绑定到request对象上
+			  request.setAttribute(String name, Object obj)
+			2 获得转发器
+			  requestDispatcher rd = request.getRequestDispatcher(String url);
+			  url:转发的目的地，通常是一个jsp
+			  requestDispatcher：接口
+			  getRequestDispatcher(String url):会返回一个接口要求的对象，即转发器
+			3 转发
+			  rd.forward(request,response);
+			  注意：转发的本质是通知容器，调用另一个web组件
+			
+		重定向：注册成功
+		转发：登陆
+		
+		
+		public void service(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	  request.setCharacterEncoding("utf-8");
+	  String username=request.getParameter("username");
+	  String name=request.getParameter("name");
+	  String password=request.getParameter("pwd");
+	  Integer pwd=Integer.parseInt(password);
+	  String sex=request.getParameter("sex");
+	  User user=new User(username,pwd,name,sex);
+	  UserDao dao=new UserDao();
+	  try {
+		dao.save(user);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  response.sendRedirect("login.html");
+  }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

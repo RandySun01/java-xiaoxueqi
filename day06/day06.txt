@@ -1,0 +1,109 @@
+20个选择题
+1个编程题
+知识点回顾
+	1 servlet:一套用来扩展web服务器功能的组建规范
+	
+	2 容器（Tomcat）
+	  符合规范，提供组建运行环境的程序
+	  
+	3 如何写一个Servlet
+	  3.1 写一个java类，实现servlet接口，或者继承HttpServlet(建议)
+	  3.2 编译（通过javac来编译）
+	      将一个.java文件编译成一个.class文件
+	  3.3 将编译后的文件打包成一个组建
+		  appname （应用名）
+		  WEB-INF:
+				  class(装.class文件)
+				  lib(.jar文件)
+				  web.xml(部署描述文件)
+
+	  3.4 部署：将组建整个文件夹拷到容器中
+	  3.5 启动服务器，访问servlet
+	  
+	4 Servlet是如何运行的
+	  4.1 浏览器根据ip，port建立连接
+	  4.2 浏览器创建请求数据包，并将请求数据包发送给servlet
+	  4.3 servlet解析请求数据包，然后将解析到的数据放到request对象中，此时再创建一个response对象
+	  4.4 容器创建一个servlet对象，然后在调用此实例的service方法
+	      注：容器会将request和response对象最为参数传进来，开发人员就可以从request（前端传过来数据）里面获取数据，
+		  然后将处理结果写到response里面去
+	  4.5 Tomcat容器会从response对象中获取处理结果，生成响应包并发送给浏览器
+	  4.6 浏览器解析响应数据包，生成对应的页面
+	  
+	5 servlet输入中文乱码处理
+		为什么会乱码
+		out在输出的时候，默认的编码格式：iso-8559-1
+		response.setContextType("text/html,charset=utf-8")
+		
+		
+		
+正课：
+	1 HTTP协议
+		1.1 HTTP 协议是一种网络应用层协议，规定了浏览器和web服务器之间如何通信以及
+		响应数据包的结构
+		
+		tcp/ip
+		https
+		
+	    1.2 HTTP协议如何通信
+			1 建立连接
+			2 发送请求
+			3 发送响应
+			4 关闭连接（浏览器）
+		1.3 数据包的结构：请求数据包
+				  响应数据包
+		1.4 请求方式：get，post请求
+			get：默认的请求方式，如果method属性没有设置，则默认就是get请求,
+			请求数据量大概只能在2kb左右，会将参数显示在地址栏，不安全
+			post：将表单的method属性设置成post，，不会将请求的参数显示在地址栏，
+			相对安全，可以提交大量的数据。
+			 
+		1.5 如何读取参数值
+			String  str = request.getParameter(String paraname);
+			如果请求参数名不存在，则返回null
+			
+			http://localhost:8080/MyServlet_day02/user?name=zs
+		1.6 表单中包含中文参数值
+			为什么会乱码
+			表单提交的时候，浏览器对表单中的中文参数进行编码（utf-8）,
+			但是服务器在解码的时候使用iso-8859-1来编码
+			get请求
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  

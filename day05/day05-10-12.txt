@@ -1,0 +1,179 @@
+知识点回顾
+MySql
+库  创建 create database 库名；
+	删除库 drop database 库名；
+	查看库 show databases;
+表	create table 表名（字段1 字段类型....）;
+	修改表 rename alter
+	查看表： show tables;
+	desc 表名；
+数据：insert select update delete
+			 条件查看
+			 模糊查询
+			 关联查询
+事务：执行sql最小单位
+	  保证一个事务里面sql语句要么都成功，要么都失败
+数据定义语言：
+数据操作语言：
+数据查询语言：
+事务控制语言：
+
+
+JDBC：
+	什么是jdbc ---一套java与数据库连接的api
+	怎么连？
+	 1 注册驱动
+	   Class.forName("com.mysql.jdbc.Driver");
+	 2 获取连接对象
+		Connection conn = DriverManager.getConnection(url,user,password))
+	 //3 获取 执行sql语句对象
+		String sql = "select * from t1";
+		PreparedStatement ps = conn.preparedStatement(sql）；
+		ps.executeQuery();
+	//	Statement state = conn.CreateStatement();
+	 //4 获取sql并执行sql
+		String sql = "select * from t1";
+	    ResultSet rs = state.executeQuery();
+	 5 处理结果集
+		while（rs.next()){
+			System.out.println(rs.getString(name));
+		}
+	 6 关闭连接
+		state.close(), rs.close(),conn.close();
+		
+	jdbc.properties
+		driver url user password
+		
+		Properties.java
+		1 创建属性对象
+			new Properties()
+		2 获取io流
+			InputStream ips = (jdbc.properties);
+		3 将文件加载到属性对象中
+			prop.load(isp);
+		4 获取数据
+			prop.getProperty("name");
+	连接池
+	DBCP： database connection pool;
+	BasicDataSource -- 类 （连接池）
+	
+PreparedStatement: 执行sql语句
+					预编译，防sql注入，效率高： conn.preparedStatement(sql);
+execute();
+executeUpdate();
+executeQuery();
+
+conn.createConnection()
+execute(sql);
+executeUpdate(sql);
+executeQuery(sql);
+
+---------------------------------------------------
+正课： Servlet		前后端的交互
+	什么是Servlet
+	sun制动的一种用来扩展web服务器功能的组建规范
+	
+	web：html（h5）静态页面
+		 只能处理一些静态资源，不能处理动态资源请求
+	组件：实现功能，符合规范，并且需要部署到容器，才能运行的软件
+	
+	Servlet --- 组件
+	Tomcat --- 容器
+	什么是容器？ 符合规范，提供运行环境的程序
+	
+
+
+1 b/s: 浏览器/服务器
+	
+
+2 c/s：客户端/浏览器：swing JFrame 
+
+3 localhost: 8080
+	ip		  端口号
+4 写一个Servlet
+  创建对象的时候
+  构造方法
+  HelloServlet ---Servlet
+  HelloServlet放进容器里面（Tomcat）里面
+	Tomcat
+	访问Tomcat里面的localhost:8080/MyServlet/hello
+						ip    端口号  项目名  地址
+	1 建立连接： localhost:8080/MyServlet/hello
+	2 创建请求数据包
+	  “淮师”
+	  
+	3 发送请求
+		localhost:8080/MyServlet
+		web.xml 找配置文件
+		<servlet>
+			<servlet-name>Hello</servlet-name>
+			<servlet-class>web.HelloServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>Hello</servlet-name>
+			<url-pattern>/hello</url-pattern>
+		</servlet-mapping>
+		/hello
+	4 解析请求包
+	5 创建request对象（请求包里面拿参数）
+	6 创建一个HelloServlet对象
+	7 service（request, response）
+	8 从request对象中获取数据
+	9 处理业务逻辑
+	10 将数据写入response
+	11 创建响应数据包
+	12 发送响应
+5 开发步骤
+	1 先有一个servlet类
+	2 在配置web.xml
+	3 添加这个servlet到容器中（Tomcat）
+	4 启动服务器
+	5 输入地址
+6 BMI值(健康指数)
+	体重(公斤)/(身高(米)*身高(米))
+	BMI值<19 过轻
+	BMI值>25 过重
+	其他正常
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+		
