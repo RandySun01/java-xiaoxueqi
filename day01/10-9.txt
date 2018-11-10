@@ -1,0 +1,81 @@
+知识点回顾
+	1 
+	
+	day 2
+	3. 数据库相关sql
+	 create database db_srz;
+	 
+	 use db_srz;
+	 create table emp( id int, name varchar(10), level int);
+	 3.1 插入数据
+	    1. 全表插入
+		   insert into emp values(1,'张飞',7);
+		   insert into emp values(2,"关羽",7);
+		2 指定字段插入
+			insert into emp(name,level) values("刘备",5);
+			insert into emp(id,name) values(4,"孙策");
+			insert into emp(name) values("吕蒙");
+		3 批量全自动段插入
+			insert into emp values(6,"machao",7),(7,"huangzhong",6),(8,"huanggai",5);
+			
+		  --查询表中所有数据
+		  select * from 表名；
+		  select * from emp;
+		4 批量指定字段插入
+			insert into emp(id,name) values(8,"zhaoyun"),(9,"xuzhu"),(10.'xuhuang');
+	3.2 修改数据
+		update emp set level = 8 where name = "张飞";
+		
+		update emp set id = 3 where name = "刘备";
+	3.3 查询数据
+		select * from 表名；
+		 select * from emp;
+		 select id，name from emp;
+		 select name, from emp;
+		条件查询
+		select * from emp where id < 15;
+		
+		insert into emp(id,name) values(0,"吕雉");
+		
+	    *** null:空，此处没有数据仅仅起占位作用
+	3.4 删除数据
+		delete from 表名；（表中数据全部删除）
+		
+		条件删除
+		delete from 表名 where 条件；
+	set names gbk;
+		
+	练习 创建t_emp 字段id name sal    my.ini
+			create table t_emp (id int, name varchar(20), sal int);
+	插入数据：
+	1 诸葛亮 2000
+	2 司马懿 3000
+	3 李白  29000
+	4 元芳  2500
+	5 狄仁杰 3600
+	
+	insert into t_emp values(2,"simayi",3000),(3,"libai",2000),(4,'yuanfang',2500),(5,'direnjie',3600);
+	修改工资2500的为2450
+	update t_emp set sal=2450 where sal="2500";
+	修改元芳为李元芳
+	update t_emp set name="liyuanfang" where name="yuanfang";
+	删除工资低于 3000
+	delete from t_emp where sal < 3000;
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		  

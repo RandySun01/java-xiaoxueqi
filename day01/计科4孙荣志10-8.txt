@@ -1,0 +1,198 @@
+课程安排
+	mysql 2-2.5
+	jdbc 1-1.5
+	servlet 3
+	emp 3
+	测试 0.5
+1、正课day01:
+	1 什么是语言
+	    交流工具
+	
+	2 什么是java语言
+		人和计算机交流的语言
+		
+		二进制-- 计算机和计算机
+		
+		汇编语言：直接在cpu运行
+		高级语言：转换器
+		
+	3 什么是计算机语言
+		用在计算机上交流的工具
+		
+	4 java语言干嘛的
+	
+		计算机不能直接识别java语言
+		需要转换器
+		.java-->.class
+			jdk
+	
+		jdk：java工具包
+		将一个.java文件转换成一个.class文件
+	
+	
+		运行.class
+		jvm：java虚拟机
+		jar: 运行环境
+	
+	存储数据的工具
+		文件 txt io流
+		存储量小，存储，读取效率低
+		
+	5 数据库：1 一个文件的集合，存储数据的仓库 有自己特定规则格式
+			  2 可以共享、
+			  冗余度小--外键、
+			  独立性高（耦合度小）数据和数据之间的关联、
+			  安全性--相对性
+			  用户可以对数据库里面的数据进行增删改查等操作
+			  
+		database：db
+		
+		主流数据库：
+		sqlserver:
+		oracle:
+		db2:
+		MySql：开源
+		
+		关系型数据库：1 以表的形式存储在数据库中
+					  2 解决 基本生活中所有问题
+		非关系型数据库：1 键值对
+						2 解决 高并发，缓存
+		
+		
+		Mysql：DBMS 数据库管理系统
+		端口号：3306
+		字符集：utf8 国际标准
+				gbk 国家标准
+		
+		sql：数据库语言
+		1 规范 1 sql语句中间可以空格，两个关键字之间 select * from em；
+		       2 sql语句可以换行 多少都可以
+			   select 
+			   
+			   
+			   *
+
+			   from em
+			   
+			   
+			   3 sql语句以；结尾
+			   4 sql语句关键字不区分大小写
+				  建议： 如果大写，关键字都大写
+						 如果都小写，关键字都小写
+		库 表 数据 
+		增删改查
+		
+		1 创建一个库：create database 库名;
+					create database db_srz;
+					
+		2 设置数据库字符集：create database 库名 character set gbk;
+							create database db1_srz character set utf8;
+							
+		3 查看所有数据库： show databases;
+		  查看当前库的编码： show create database db1_srz;
+		  
+		4 使用库：
+			use 库名；
+			use db1_srz;-- 执行该语句之后，所有操作都在该库下面
+			
+		5 删除库： drop database 库名；
+					drop database db1_srz;
+					
+		6 对表的操作：在关系型数据库中存储数据的单元，类似excel表格，
+					  ****创建表的时候需要指定字段的类型
+					  在操作表之前一定要指定库***
+			1 创建表：create table 表名（字段名1 字段类型,
+										 字段名2 字段类型,...	）；
+				字段类型： int： 整数类型
+						   varchar：字符串类型
+						   eg: 创建一个学生表 id int name varchar sex varchar  
+						   
+			2 查看库中表: show tables;
+			
+			3 删除表： drop table 表名；
+					   drop table student;
+					   
+			4 创建表的时候指定引擎和编码：
+				mysql引擎：设置对表的访问权限；
+				   1 MyIsam: 只支持对数据的增删改查
+				   2 InnoDB: 支持数据库的高级操作：事务，外键，
+					create table stu(id int,
+										 name varchar(20)	）engine=MyIsam charset=gbk;
+			5 修改表名
+				rename table 原名 to 新名；
+				rename table student to db_student;
+			6 修改表的引擎或者编码
+				alter table 表名 engine=InnoDB charset=utf8;
+			7 查看表的字段信息
+				desc 表名；
+				desc db_student;
+			8 新增表的一个字段
+			
+				1 alter table 表名 add 新字段名 类型；(后面)
+				  alter table db_student add age int;
+				
+				2 添加字段放在首位
+				  class varchar(10);
+				  alter table 表名 add 新字段名 类型 first；
+			      alter table db_student add class varchar(10）first;
+				
+				3 addr varchar（10）添加字段在name前面，id后面
+				  alter table db_student add addr varchar(20) after id;
+			9 删除表字段
+				alter table 表名 drop 字段名
+				删除班级：alter table db_student drop class;
+				
+			10 修改表的字段名，字段类型
+			  alter table 表名 change 原名 新名 字段类型；
+			  alter table db_student change addr address varchar(50);
+			  
+		    11 修改表中字段的类型和字段的位置
+				alter table 表名 modify 字段名 新字段类型  first/after（前/后） 字段名2
+				
+				1 将 name移动到最前面 varchar（50）first
+					alter table db_student modify name varchar(50) first;
+					
+				2 将 sex移动到name的后面  after 字段名2
+				  alter table db_student modify sex varchar(10) after name;
+		
+		
+		    练习：
+			    创建数据库 db1;
+				
+				该库下创建两张表：t_emp,    id int, ename varchar(50) ,dept_id int ,编码：gbk 引擎 MyIsam
+								create table t_emp(id int, ename varchar(50),dept_id int) engine=MyIsam charset=gbk;
+						
+								  t_dept, id int , dname varchar(20), parent_id_ int 编码：gbk 引擎 InnoDB;
+									create table t_emp(id int, dname varchar(20),dept_id int) engine=InnoDB charset=gbk;
+								  
+								  修改t_emp表名为emp
+								  rename table t_emp to emp;
+								  
+								  添加age 在ename后面
+								  alter table emp add age int after ename;
+								  
+								  t_dept添加type varchar（20）到最后
+								  alter table t_dept add type varchar(20);
+								  
+								  t_dept修改dname字段名为name
+								  alter table t_dept change dname name varchar(10);
+								  
+								  t_emp删除ename;
+								  alter table emp drop ename;
+								  
+								  
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
