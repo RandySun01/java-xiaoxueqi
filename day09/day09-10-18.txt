@@ -1,0 +1,25 @@
+1 登陆陆
+	localhost：8080/emp/login.html(.jsp)
+	tomcat:解析地址（web.xml ）
+			解析请求数据包（参数拿出来放进request）
+			Servlet:调用service(request,respont)，
+			获取request参数，执行业务
+			执行业务过程中涉及的数据是UserDao,从数据库拿出的
+			Servlet会将数据打包放到response 里面给了容器，容器在将
+			respond里面数据打包成响应数据发送给浏览器
+			
+			
+			Tomcat进行比较request里面的参数和数据库里面数据比较是否一致。跳转到index.jsp 
+
+create database db_srz;
+use db_srz;
+create table emp(id int primary key auto_increment, name varchar(20), salary int, job varchar(20));
+insert into emp values(null,"Tom",10000,"boss"),
+					  (null,"Tim",9000,"ceo"),
+					   (null,"jack",8000,"cfo"),
+					    (null,"rose",7000,"manager");
+	// 列表地址转换
+	localhost：8080/emp/login.html
+	localhost:8080/emp/list
+	localhost:8080/emp/emplist.jsp
+	
