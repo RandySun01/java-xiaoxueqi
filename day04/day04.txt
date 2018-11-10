@@ -1,0 +1,37 @@
+
+
+DBUtils ---- 数据库连接的工具类
+参数
+
+jar  .class 文件
+
+1 Properties: 文件类，里面的属性以键值对形式保存
+  
+  driver = com.mysql.jdvc.Driver
+  url = jdbc:mysql://localhost:3306/db_srz
+  user = root
+  password = 123456
+
+    use db_srl;
+	create table t1(id int, name varchar(10));
+	insert into t1 values(1,"jack");
+
+insert into t1 values(2,"rose");
+2 数据库连接池
+	连接池：
+	数据库连接池：
+	连接池是什么：
+	做什么：
+
+
+
+
+
+
+
+
+
+
+
+
+

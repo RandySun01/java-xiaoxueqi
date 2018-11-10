@@ -1,0 +1,233 @@
+	day 2
+	3. 数据库相关sql
+	 create database db_srz;
+	 
+	 use db_srz;
+	 create table emp( id int, name varchar(10), level int);
+	 3.1 插入数据
+	    1. 全表插入
+		   insert into emp values(1,'张飞',7);
+		   insert into emp values(2,"关羽",7);
+		2 指定字段插入
+			insert into emp(name,level) values("刘备",5);
+			insert into emp(id,name) values(4,"孙策");
+			insert into emp(name) values("吕蒙");
+		3 批量全自动段插入
+			insert into emp values(6,"machao",7),(7,"huangzhong",6),(8,"huanggai",5);
+			
+		  --查询表中所有数据
+		  select * from 表名；
+		  select * from emp;
+		4 批量指定字段插入
+			insert into emp(id,name) values(8,"zhaoyun"),(9,"xuzhu"),(10.'xuhuang');
+	3.2 修改数据
+		update emp set level = 8 where name = "张飞";
+		
+		update emp set id = 3 where name = "刘备";
+	3.3 查询数据
+		select * from 表名；
+		 select * from emp;
+		 select id，name from emp;
+		 select name, from emp;
+		条件查询
+		select * from emp where id < 15;
+		
+		insert into emp(id,name) values(0,"吕雉");
+		
+	    *** null:空，此处没有数据仅仅起占位作用
+	3.4 删除数据
+		delete from 表名；（表中数据全部删除）
+		
+		条件删除
+		delete from 表名 where 条件；
+	set names gbk; 修改字符集
+		
+		
+	练习 创建t_emp 字段id name sal    my.ini 修改字符集
+			create table t_emp (id int, name varchar(20), sal int);
+	插入数据：
+	1 诸葛亮 2000
+	2 司马懿 3000
+	3 李白  29000
+	4 元芳  2500
+	5 狄仁杰 3600
+	
+	insert into t_emp values(2,"simayi",3000),(3,"libai",2000),(4,'yuanfang',2500),(5,'direnjie',3600);
+	修改工资2500的为2450
+	update t_emp set sal=2450 where sal="2500";
+	修改元芳为李元芳
+	update t_emp set name="liyuanfang" where name="yuanfang";
+	删除工资低于 3000
+	delete from t_emp where sal < 3000;
+	
+	
+	4 约束
+	   -- 什么是约束
+	   创建表的时候，给字段一些限制条件
+	   4.1 主键约束  primary key
+	     
+		 主键： 表中有唯一性的字段 （一般主键默认为id）
+		 主键具有非空性
+		 
+		 格式
+		 create table t1(id  int primary key, name varchar(20));
+		 
+		 insert into t1 values(1,"jack");
+		 insert into t1(id) values(1);  //出错
+		 insert into t1(id) values(2);
+		 insert into t1 values(null,"rose"); // 出错Field 'id' doesn't have a default value
+		 insert into t1(name) values("rose");  Field 'id' doesn't have a default value
+	    
+		4.2 主键自增 auto_increment
+			格式
+			create table t2(id int primary key auto_increment, name varchar(20));
+			
+			insert into t2 values(null,"张辽");
+			insert into t2(name) values("贾维斯");
+			insert into t2(name) values("跃进"),("夏侯渊"),("等名"),("甲子"),("曹风"),("曹操"),("曹丕");
+			
+			delete from t2 where id=3;
+			
+			insert into t2(name) values("曹植");
+			delete from t2 where id=9;
+			insert into t2(name) values("曹冲");
+			
+			******
+			删除中间某个数据的时候，这个数据的自增值不会在出现，
+			删除结尾数据的时候，这个值不会出现
+			******
+			
+			自增的特点：
+				1  值为null时，自动赋值；
+					
+				
+		        2  以最大值+1，自增
+					insert into t2 values(100, "刘禅");
+					insert into t2 values(null,"孙权");
+				3  删除或者清空表中的数据，自增值不变
+					delete from t2;
+					insert into t2 values(null,"周瑜");
+				4  怎样清空自增值  --> truncate
+					truncate：清空表中所有数据（包括自增值）；
+					truncate = drop + create；
+					格式：truncate table t2;
+		4.3 注释 comment
+			create table t3(id int primary key comment '主键',name varchar(20) comment '姓名',age int comment '年龄');
+			 
+			查看注释： show create table t3;
+			
+		4.4 外键
+			数据冗余：由于表设计的不合理性，出现大量重复的数据；
+			解决冗余：可以通过拆分表的形式，把重复的数据保存到另一张表中；
+					  在原表中只需要一个id值建立联系，这种建立关系的字段称之为--->外键； 
+			案例分析：
+				商品表
+				create table item(id int primary key auto_increment,
+								  name varchar(30),
+								  price int,
+								  num int comment '库存',
+								  category_id int comment '分类表id'
+								  );
+				分类表
+				create table category(id int primary key auto_increment,
+									  name varchar(30),
+									  parent_id int comment '父类id'
+									  );
+									  
+				电器-->手机-->华为-->荣耀-->荣耀10
+				
+				在电器分类下的电视机分类下插入
+				
+				康佳电视 1000 30				
+				insert into category values(null,"电器",null);	1			
+				
+				insert into category values(null,"电视机",1);	2
+				
+				insert into item values(null,"康佳电视",1000,30,2);	1
+				
+				
+				练习：
+				    在鞋类下的男鞋下的运动鞋下插入
+					耐克  500 40
+					
+					insert into category values(null,"鞋"null); 3
+					
+					insert into category values(null,"男鞋",3);  4
+					insert into category values(null,"运动鞋",4); 5
+					insert into item values(null,'耐克',500,40,5); 2
+					
+			非空约束： not null
+			
+		4.5  事务
+			什么是事务
+			事务就是数据库中执行sql语句最小单元
+			把多条sql语句放在一个事务中，可以保证这些语句要么都执行成功，要么都执行失败，
+			
+			查看事务当前状态
+			show variables like '%autocommit%';
+			on或1 表示事务会自动提交
+			off或0 表示事务不会自动提交
+			
+			设置事务状态
+			set autocommit = 1/0;
+			
+			create table t4(id int, name varchar(10),money int);
+			
+			insert into t4 values(1,"老李",10000),(2,"老张",1000);
+			
+			update t4 set money = 5000 where id=1;
+			update t4 set money = 6000 where id=2;
+			
+			select * from t4;
+			
+			手动提交事务：commit;
+			update t4 set money = 4000 where id=1;
+			commit;
+			update t4 set money = 7000 where id=2;
+			
+			数据库里面钱变了没有--->没有			
+			事务关闭 --> sql只在内存中执行结果，数据库没有保存结果
+						 同一个窗口下面，操作的（查看的）是内存中的结果
+						 另外打开一个窗口，操作的的结果是数据库里面的数据
+						 
+			
+			
+			
+			
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		  

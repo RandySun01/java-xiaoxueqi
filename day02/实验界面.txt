@@ -1,0 +1,171 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.5.20 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database db_srz;
+Query OK, 1 row affected (0.20 sec)
+
+mysql> use db_srz;
+Database changed
+mysql> create table emp( id int, name varchar(10), level int);
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> insert into emp values(1,'ÕÅ·É',7);
+ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xB7\xC9' for column 'name'
+ at row 1
+mysql> insert into emp values(1,'zhangfei',7);
+Query OK, 1 row affected (0.70 sec)
+
+mysql> insert into emp values(2,"guanyu",7);
+Query OK, 1 row affected (0.81 sec)
+
+mysql> insert into emp(name,level) values("liubei",5);
+Query OK, 1 row affected (0.93 sec)
+
+mysql> insert into emp(id,name) values(4,"sunce")£»
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near '??' a
+t line 1
+mysql> insert into emp(id,name) values(4,"sunce");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp(name) values("lvmeng")£»
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near '??' a
+t line 1
+mysql> insert into emp(name) values("lvmeng");
+Query OK, 1 row affected (2.25 sec)
+
+mysql> insert into emp values(6,"machao",7),(7,"huangzhong",6),(8,"huanggai",5);
+
+Query OK, 3 rows affected (3.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp(id,name) values(8,"zhaoyun"),(9,"xuzhu"),(10.'xuhuang');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near ''xuhu
+ang')' at line 1
+mysql> insert into emp(id,name) values(8,"zhaoyun"),(9,"xuzhu"),(10,'xuhuang');
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> create table t_emp (id int, name varchar(20), sal int) charset=utf8;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into t_emp values(1,"Öî¸ðÁÁ",2000);
+ERROR 1366 (HY000): Incorrect string value: '\xD6\xEE\xB8\xF0\xC1\xC1' for colum
+n 'name' at row 1
+mysql> insert into t_emp values(1,"zhegeliang",2000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into t_emp values(2,"simayi",3000),(3,"libai",2000),(4,'yuanfang',
+2500),(5,'direnjie',3600);
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> selctel * from t_emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'selct
+el * from t_emp' at line 1
+mysql> select * from t_emp;
++------+------------+------+
+| id   | name       | sal  |
++------+------------+------+
+|    1 | zhegeliang | 2000 |
+|    2 | simayi     | 3000 |
+|    3 | libai      | 2000 |
+|    4 | yuanfang   | 2500 |
+|    5 | direnjie   | 3600 |
++------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> update t_emp set sal=2450 where sal="2500";
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from t_emp;
++------+------------+------+
+| id   | name       | sal  |
++------+------------+------+
+|    1 | zhegeliang | 2000 |
+|    2 | simayi     | 3000 |
+|    3 | libai      | 2000 |
+|    4 | yuanfang   | 2450 |
+|    5 | direnjie   | 3600 |
++------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> update t_emp set name="liyuanfang" where name="yuanfang";
+Query OK, 1 row affected (0.23 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from t_emp;
++------+------------+------+
+| id   | name       | sal  |
++------+------------+------+
+|    1 | zhegeliang | 2000 |
+|    2 | simayi     | 3000 |
+|    3 | libai      | 2000 |
+|    4 | liyuanfang | 2450 |
+|    5 | direnjie   | 3600 |
++------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql>  delete from t_emp where sal < 3000;
+Query OK, 3 rows affected (0.05 sec)
+
+mysql> select * from t_emp;
++------+----------+------+
+| id   | name     | sal  |
++------+----------+------+
+|    2 | simayi   | 3000 |
+|    5 | direnjie | 3600 |
++------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> set names gbk;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into t_emp values(1,"Àæ»¨",2000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from t_emp;
++------+----------+------+
+| id   | name     | sal  |
++------+----------+------+
+|    2 | simayi   | 3000 |
+|    5 | direnjie | 3600 |
+|    1 | Àæ»¨       | 2000 |
++------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> update t_emp set name="Ë¾ÂíÜ²" where name="simayi";
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update t_emp set name="µÒÈÊ½Ü" where name="direnjie";
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from t_emp;
++------+--------+------+
+| id   | name   | sal  |
++------+--------+------+
+|    2 | Ë¾ÂíÜ²     | 3000 |
+|    5 | µÒÈÊ½Ü      | 3600 |
+|    1 | Àæ»¨     | 2000 |
++------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql>

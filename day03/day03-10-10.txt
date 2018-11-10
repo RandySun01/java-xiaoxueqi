@@ -1,0 +1,137 @@
+正课 10 - 10
+
+	1 模糊查询
+		select * from emp where name="淮师";
+		select * from emp where name like'%师%';
+		
+		1 淮师
+		2 淮南师范学院
+		3 安庆师范
+		
+		%： 表示有不确定个数的字符；
+			select * from emp where name like'%师%';
+		-： 表示一个字符；
+			select * from emp where name like'_师';
+		
+		create table t1(id int, name varchar(10));
+		insert into t1 values(1,"ha"),(2,"asee"),(3,"uuai"),(4,"jaaa"),(5,"aaaaa");
+		select * from t1 where name like '_a%';
+		select * from t1 where name like '__a%';
+		
+	2 sql语句分类
+		1 数据定义语言（DDL） CREATE DROP ALTER 
+		2 数据操作语言（DML） INSERT UPDATE DELETE SELECT 
+		3 数据查询语言（DQL） SLECECT
+			
+*****************************************************************************************
+	
+	3 IDE
+		ECLIPSE:  MAVEN
+		MYECLIPSE: web 
+		IDEA:
+	4 JDBC
+	  JDBC:java连接数据库
+		   java提供了一整套完整的api去连接数据库
+	  使用JDBC 
+	    1 加载（注册）驱动
+		2 获取连接对象
+		3 创建并执行sql对象
+		4 处理结果集
+		5 关闭连接
+	5 把t2删掉
+	
+	   1 静态方法不能调用非静态方法
+	   2 非静态方法可以调用静态方法
+	   
+	    方法加载时机：
+		
+	6 junit测试
+		@Test
+		1  一个类里面可以有很多junit测试方法
+		2  要求这些方法必须是无参无返回值
+		
+	7 statement类 执行 sql语句分类
+	  
+	  execute：执行所有的sql语句 DDL DML DQL 
+		        没有返回值，执行的时候不知道有没有执行成功
+	  executeUpdate： DML除了DQL
+					  返回值类型是 int类型，表示执行的条数
+	  executeQuert: 专门执行DQL
+					返回值是一个集合：ResultSet
+					
+	  resultSet --->select数据
+		
+	   emp
+	   
+	   id   name    sal     job     addr
+	   1	唐僧	1000	念经	大唐
+	   2	悟空	910		打架	花果山
+	   3	八戒	800		吃饭	高老庄
+	   4	沙僧	700		保姆	流沙河
+	   5	白龙	600		坐骑	东海
+	   insert into emp values(1,"唐僧",1000,"念经","大唐"),
+							 (2,"悟空",900,"打架","花果山"),
+							 (3,"八戒",800,"吃饭","高老庄"),
+							 (4,"沙僧",700,"保姆","流沙河"),
+							 (5,"白龙",600,"坐骑","东海");
+	   create table emp(id int,name varchar(20),sal int, job varchar(20),addr varchar(20));
+		
+		@Test
+		public void find(){
+			//查询出emp中的姓名和工作，显示
+			
+		}
+		
+		
+		
+		编程乱码问题：
+		1 在创建数据的时候设置字符集
+		
+			create database 库名 charset=utf8;
+		2 设置字符集
+			set names gbk;
+		3 修改 my.ini
+		4 jdbc连接的时候设置
+		  jdbc:mysql://localhost:3306/库名 useUnicode=true&characterEncoding=utf-8
+		5 卸载重装设置字符集 
+	8 面向对象特征：封装，继承，多态
+		封装：将同一个类的属性和行为
+		
+		public void test01(){
+			return ; // 结束这个方法
+		}
+		
+		public int test02(){
+			return 0// 返回一个结果并结束这个方法
+			
+		}
+		
+		public Connection test03(){
+			try{
+				return conn ;  1
+			}catch(){
+			
+			}
+			
+			return ; 2
+		}
+	
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
